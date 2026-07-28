@@ -8,29 +8,27 @@
 
 :root,
 [data-theme="light"] {
-  --bg:            #F5F1E8; /* page + canvas background */
-  --surface:       #FFFFFF; /* cards, toolbar */
-  --surface-alt:   #FAF8F3; /* node header, subtle panels */
-  --text-primary:  #1A1A1A;
-  --text-secondary:#6B6558; /* labels, helper text */
-  --border:        #E0DACD;
-  --accent:        #C1502E; /* handles, active state, index numbers */
-  --accent-fg:     #FFFFFF; /* text placed on top of --accent */
+  --bg:            #FBFAF7; /* page + canvas background */
+  --surface:       #F8F6F1; /* cards, toolbar */
+  --surface-alt:   #F9F6ED; /* node header, subtle panels */
+  --text-primary:  #0F131A;
+  --text-secondary:#20242C; /* labels, helper text */
+  --border:        #BFB7A4;
+  --accent:        #5B4824; /* handles, active state, index numbers */
   --success:       #3D7A54;
   --danger:        #B9412C;
 }
 
 [data-theme="dark"] {
-  --bg:            #0B0B0C;
-  --surface:       #16161A;
-  --surface-alt:   #1E1E22;
+  --bg:            #0C0A07;
+  --surface:       #141109;
+  --surface-alt:   #1C180F;
   --text-primary:  #F5F1E8;
-  --text-secondary:#9A968C;
-  --border:        #2A2A2E;
-  --accent:        #E07850;
-  --accent-fg:     #0B0B0C;
+  --text-secondary:#A89F8E;
+  --border:        #2C2720;
+  --accent:        #C4953F;
   --success:       #5CA57A;
-  --danger:        #E06B54;
+  --danger:        #D9624E;
 }
 
 

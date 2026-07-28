@@ -1,7 +1,3 @@
-// ui.js
-// Displays the drag-and-drop UI
-// --------------------------------------------------
-
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from '../store/store';
@@ -15,6 +11,7 @@ import { ConditionalRouterNode } from './nodes/conditionalRouterNode';
 import { StructuredOutputNode } from './nodes/structuredOutputNode';
 import { WebhookNode } from './nodes/webhookNode';
 import { SummarizerNode } from './nodes/summarizerNode';
+import { ContextMenu } from './utils/ContextMenu';
 
 import 'reactflow/dist/style.css';
 
@@ -40,10 +37,14 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  deleteNode: state.deleteNode,
+  deleteEdge: state.deleteEdge,
+  clearNodeEdges: state.clearNodeEdges,
 });
 
 export const PipelineUI = () => {
     const reactFlowWrapper = useRef(null);
+    const [menu, setMenu] = useState(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const {
       nodes,
@@ -52,7 +53,10 @@ export const PipelineUI = () => {
       addNode,
       onNodesChange,
       onEdgesChange,
-      onConnect
+      onConnect,
+      deleteNode,
+      deleteEdge,
+      clearNodeEdges,
     } = useStore(selector, shallow);
 
     const getInitNodeData = (nodeID, type) => {
@@ -69,7 +73,6 @@ export const PipelineUI = () => {
             const appData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
             const type = appData?.nodeType;
       
-            // check if the dropped element is valid
             if (typeof type === 'undefined' || !type) {
               return;
             }
@@ -98,6 +101,30 @@ export const PipelineUI = () => {
         event.dataTransfer.dropEffect = 'move';
     }, []);
 
+    const onNodeContextMenu = useCallback((event, node) => {
+      event.preventDefault();
+      setMenu({
+        id: node.id,
+        type: 'node',
+        x: event.clientX,
+        y: event.clientY,
+      });
+    }, []);
+
+    const onEdgeContextMenu = useCallback((event, edge) => {
+      event.preventDefault();
+      setMenu({
+        id: edge.id,
+        type: 'edge',
+        x: event.clientX,
+        y: event.clientY,
+      });
+    }, []);
+
+    const onPaneClick = useCallback(() => {
+      setMenu(null);
+    }, []);
+
     return (
         <div ref={reactFlowWrapper} style={{ width: '100vw', height: '100vh' }}>
             <ReactFlow
@@ -109,6 +136,9 @@ export const PipelineUI = () => {
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 onInit={setReactFlowInstance}
+                onNodeContextMenu={onNodeContextMenu}
+                onEdgeContextMenu={onEdgeContextMenu}
+                onPaneClick={onPaneClick}
                 nodeTypes={nodeTypes}
                 proOptions={proOptions}
                 snapGrid={[gridSize, gridSize]}
@@ -118,6 +148,17 @@ export const PipelineUI = () => {
                 <Controls />
                 <MiniMap />
             </ReactFlow>
+
+            {menu && (
+              <ContextMenu
+                {...menu}
+                onClose={() => setMenu(null)}
+                onDeleteNode={deleteNode}
+                onDeleteEdge={deleteEdge}
+                onClearEdges={clearNodeEdges}
+              />
+            )}
         </div>
     )
 }
+

@@ -1,19 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root,
+[data-theme="light"] {
+  --bg:            #F5F1E8; /* page + canvas background */
+  --surface:       #FFFFFF; /* cards, toolbar */
+  --surface-alt:   #FAF8F3; /* node header, subtle panels */
+  --text-primary:  #1A1A1A;
+  --text-secondary:#6B6558; /* labels, helper text */
+  --border:        #E0DACD;
+  --accent:        #C1502E; /* handles, active state, index numbers */
+  --accent-fg:     #FFFFFF; /* text placed on top of --accent */
+  --success:       #3D7A54;
+  --danger:        #B9412C;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+[data-theme="dark"] {
+  --bg:            #0B0B0C;
+  --surface:       #16161A;
+  --surface-alt:   #1E1E22;
+  --text-primary:  #F5F1E8;
+  --text-secondary:#9A968C;
+  --border:        #2A2A2E;
+  --accent:        #E07850;
+  --accent-fg:     #0B0B0C;
+  --success:       #5CA57A;
+  --danger:        #E06B54;
+}
+
+
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

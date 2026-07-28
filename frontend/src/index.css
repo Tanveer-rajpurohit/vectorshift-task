@@ -90,7 +90,7 @@ body {
 }
 
 .react-flow__minimap-mask {
-  fill: var(--bg) !important;
+  fill: #5b4824b7 !important;
   opacity: 0.6;
 }
 

@@ -11,6 +11,11 @@ export const PipelineToolbar = () => {
                 <DraggableNode type='llm' label='LLM' />
                 <DraggableNode type='customOutput' label='Output' />
                 <DraggableNode type='text' label='Text' />
+                <DraggableNode type='webSearch' label='Web Search' />
+                <DraggableNode type='conditionalRouter' label='Conditional Router' />
+                <DraggableNode type='structuredOutput' label='Structured Output' />
+                <DraggableNode type='webhook' label='Webhook Trigger' />
+                <DraggableNode type='summarizer' label='Summarizer' />
             </div>
         </div>
     );

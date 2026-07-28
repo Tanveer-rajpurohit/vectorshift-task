@@ -10,6 +10,11 @@ import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
+import { WebSearchNode } from './nodes/webSearchNode';
+import { ConditionalRouterNode } from './nodes/conditionalRouterNode';
+import { StructuredOutputNode } from './nodes/structuredOutputNode';
+import { WebhookNode } from './nodes/webhookNode';
+import { SummarizerNode } from './nodes/summarizerNode';
 
 import 'reactflow/dist/style.css';
 
@@ -20,6 +25,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  webSearch: WebSearchNode,
+  conditionalRouter: ConditionalRouterNode,
+  structuredOutput: StructuredOutputNode,
+  webhook: WebhookNode,
+  summarizer: SummarizerNode,
 };
 
 const selector = (state) => ({

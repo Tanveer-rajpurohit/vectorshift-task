@@ -39,20 +39,59 @@ def read_root():
 @app.post('/pipelines/parse')
 def parse_pipeline(pipeline: Pipeline):
 
-    print("\n" + "=" * 50)
-    print("RECEIVED PIPELINE PAYLOAD INSPECTION")
-    print("=" * 50)
-    print(f"Total Nodes: {len(pipeline.nodes)}")
-    print("\nNodes List:")
-    for node in pipeline.nodes:
-        print(f"  • ID: {node.id} | Type: {node.type}")
-    print("\nEdges List (Connections):")
+    # print("\n" + "=" * 50)
+    # print("RECEIVED PIPELINE PAYLOAD INSPECTION")
+    # print("=" * 50)
+    # print(f"Total Nodes: {len(pipeline.nodes)}")
+    # print("\nNodes List:")
+    # for node in pipeline.nodes:
+    #     print(f"  • ID: {node.id} | Type: {node.type}")
+    # print("\nEdges List (Connections):")
+    # for edge in pipeline.edges:
+    #     print(f"  • {edge.source} ──► {edge.target} (Handles: {edge.sourceHandle} -> {edge.targetHandle})")
+    # print("=" * 50 + "\n")
+
+    adj: Dict[str, List[str]] = {node.id: [] for node in pipeline.nodes}
+
     for edge in pipeline.edges:
-        print(f"  • {edge.source} ──► {edge.target} (Handles: {edge.sourceHandle} -> {edge.targetHandle})")
-    print("=" * 50 + "\n")
+        if edge.source in adj:
+            adj[edge.source].append(edge.target)
+        
+    # print("\nAdjacency List Representation of the Pipeline:")
+    # for node_id, neighbors in adj.items():
+    #     print(f"  • {node_id}: {neighbors}")
+
+
+    # DFS to detect cycles in the directed graph
+
+    WHITE, GRAY, BLACK = 0, 1, 2
+    state: Dict[str, int] = {node.id: WHITE for node in pipeline.nodes}
+
+    def has_cycle(node_id: str) -> bool:
+        state[node_id] = GRAY
+
+        for neighbor in adj.get(node_id, []):
+            neighbor_state = state.get(neighbor, WHITE)
+
+            if neighbor_state == GRAY:
+                return True
+
+            if neighbor_state == WHITE:
+                if has_cycle(neighbor):
+                    return True
+            
+        state[node_id] = BLACK
+        return False
+             
+    is_dag = True
+    for node in pipeline.nodes:
+        if state[node.id] == WHITE:
+            if has_cycle(node.id):
+                is_dag = False
+                break
 
     return {
         "num_nodes": len(pipeline.nodes),
         "num_edges": len(pipeline.edges),
-        "is_dag": True  
+        "is_dag": is_dag  
     }

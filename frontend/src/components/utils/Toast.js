@@ -47,12 +47,12 @@ export const Toast = ({ toast, onClose }) => {
                 <span className="block text-[9px] text-[var(--text-secondary)] uppercase tracking-wider font-sans">Edges</span>
                 <span className="font-bold text-[var(--text-primary)]">{toast.data.num_edges}</span>
               </div>
-              <div className={`py-1 px-2 rounded border font-semibold ${
+              <div className={`py-1 px-2 rounded border font-bold ${
                 toast.data.is_dag
-                  ? 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/30'
-                  : 'bg-[var(--danger)]/10 text-[var(--danger)] border-[var(--danger)]/30'
+                  ? 'bg-[var(--success)] text-[var(--bg)] border-[var(--success)] shadow-sm'
+                  : 'bg-[var(--danger)] text-[var(--bg)] border-[var(--danger)] shadow-sm'
               }`}>
-                <span className="block text-[9px] opacity-80 uppercase tracking-wider font-sans">DAG</span>
+                <span className="block text-[9px] uppercase tracking-wider font-sans font-medium opacity-90">DAG</span>
                 <span>{toast.data.is_dag ? 'Valid' : 'Cycle'}</span>
               </div>
             </div>

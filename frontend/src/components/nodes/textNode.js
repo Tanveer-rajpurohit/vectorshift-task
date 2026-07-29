@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
+import { NodeLabel, NodeTextarea } from '../utils/FormControls';
 
 export const TextNode = ({ id, data }) => {
   const [currText, setCurrText] = useState(data?.text || '{{input}}');
@@ -10,15 +11,16 @@ export const TextNode = ({ id, data }) => {
       inputs={[]}
       outputs={[{ id: `${id}-output`, label: 'Output' }]}
     >
-      <label style={{ display: 'block' }}>
-        Text:
-        <input
-          type="text"
+      <div>
+        <NodeLabel>Text Content</NodeLabel>
+        <NodeTextarea
           value={currText}
           onChange={(e) => setCurrText(e.target.value)}
-          style={{ marginLeft: 4 }}
+          placeholder="Enter text or {{variables}}..."
+          rows={2}
         />
-      </label>
+      </div>
     </BaseNode>
   );
 };
+

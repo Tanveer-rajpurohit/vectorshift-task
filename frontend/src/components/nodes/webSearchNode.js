@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
+import { NodeLabel, NodeInput, NodeSelect } from '../utils/FormControls';
 
 export const WebSearchNode = ({ id, data }) => {
   const [provider, setProvider] = useState(data?.provider || 'Google');
@@ -14,29 +15,30 @@ export const WebSearchNode = ({ id, data }) => {
         { id: `${id}-sources`, label: 'Sources' },
       ]}
     >
-      <label style={{ display: 'block', marginBottom: 4 }}>
-        Provider:
-        <select
+      <div>
+        <NodeLabel>Search Engine</NodeLabel>
+        <NodeSelect
           value={provider}
           onChange={(e) => setProvider(e.target.value)}
-          style={{ marginLeft: 4 }}
-        >
-          <option>Google</option>
-          <option>Bing</option>
-          <option>DuckDuckGo</option>
-        </select>
-      </label>
-      <label style={{ display: 'block' }}>
-        Max results:
-        <input
+          options={[
+            { value: 'Google', label: 'Google' },
+            { value: 'Bing', label: 'Bing' },
+            { value: 'DuckDuckGo', label: 'DuckDuckGo' },
+          ]}
+        />
+      </div>
+
+      <div>
+        <NodeLabel>Max Results</NodeLabel>
+        <NodeInput
           type="number"
           min="1"
           max="20"
           value={maxResults}
           onChange={(e) => setMaxResults(e.target.value)}
-          style={{ marginLeft: 4, width: 44 }}
         />
-      </label>
+      </div>
     </BaseNode>
   );
 };
+

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
+import { NodeLabel, NodeTextarea } from '../utils/FormControls';
 
 export const StructuredOutputNode = ({ id, data }) => {
   const [schema, setSchema] = useState(
@@ -12,22 +13,15 @@ export const StructuredOutputNode = ({ id, data }) => {
       inputs={[{ id: `${id}-input`, label: 'Unstructured' }]}
       outputs={[{ id: `${id}-json`, label: 'JSON' }]}
     >
-      <label style={{ display: 'block', fontSize: 12 }}>
-        JSON Schema:
-        <textarea
+      <div>
+        <NodeLabel>JSON Schema</NodeLabel>
+        <NodeTextarea
           value={schema}
           onChange={(e) => setSchema(e.target.value)}
           rows={3}
-          style={{
-            display: 'block',
-            width: '100%',
-            marginTop: 4,
-            fontFamily: 'monospace',
-            fontSize: 11,
-            resize: 'vertical',
-          }}
         />
-      </label>
+      </div>
     </BaseNode>
   );
 };
+

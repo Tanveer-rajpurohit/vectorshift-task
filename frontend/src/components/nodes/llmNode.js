@@ -10,7 +10,8 @@ export const LLMNode = ({ id, data }) => {
       ]}
       outputs={[{ id: `${id}-response`, label: 'Response' }]}
     >
-      <span style={{ fontSize: 12, color: '#555' }}>This is a LLM.</span>
+      <span className="text-xs text-[var(--text-secondary)]">This is an LLM engine node.</span>
     </BaseNode>
   );
 };
+

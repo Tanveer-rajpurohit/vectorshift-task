@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
+import { NodeLabel, NodeInput, NodeSelect } from '../utils/FormControls';
 
 export const WebhookNode = ({ id, data }) => {
   const [method, setMethod] = useState(data?.method || 'POST');
@@ -11,27 +12,28 @@ export const WebhookNode = ({ id, data }) => {
       inputs={[]}
       outputs={[{ id: `${id}-payload`, label: 'Payload' }]}
     >
-      <label style={{ display: 'block', marginBottom: 4 }}>
-        Method:
-        <select
+      <div>
+        <NodeLabel>HTTP Method</NodeLabel>
+        <NodeSelect
           value={method}
           onChange={(e) => setMethod(e.target.value)}
-          style={{ marginLeft: 4 }}
-        >
-          <option>POST</option>
-          <option>GET</option>
-          <option>PUT</option>
-        </select>
-      </label>
-      <label style={{ display: 'block' }}>
-        Path:
-        <input
+          options={[
+            { value: 'POST', label: 'POST' },
+            { value: 'GET', label: 'GET' },
+            { value: 'PUT', label: 'PUT' },
+          ]}
+        />
+      </div>
+
+      <div>
+        <NodeLabel>Endpoint Path</NodeLabel>
+        <NodeInput
           type="text"
           value={path}
           onChange={(e) => setPath(e.target.value)}
-          style={{ marginLeft: 4, width: 90 }}
         />
-      </label>
+      </div>
     </BaseNode>
   );
 };
+

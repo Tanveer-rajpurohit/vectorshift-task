@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
+import { NodeLabel, NodeInput, NodeSelect } from '../utils/FormControls';
 
 export const InputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
@@ -11,26 +12,27 @@ export const InputNode = ({ id, data }) => {
       inputs={[]}
       outputs={[{ id: `${id}-value`, label: 'Value' }]}
     >
-      <label style={{ display: 'block', marginBottom: 4 }}>
-        Name:
-        <input
+      <div>
+        <NodeLabel>Field Name</NodeLabel>
+        <NodeInput
           type="text"
           value={currName}
           onChange={(e) => setCurrName(e.target.value)}
-          style={{ marginLeft: 4 }}
         />
-      </label>
-      <label style={{ display: 'block' }}>
-        Type:
-        <select
+      </div>
+
+      <div>
+        <NodeLabel>Input Type</NodeLabel>
+        <NodeSelect
           value={inputType}
           onChange={(e) => setInputType(e.target.value)}
-          style={{ marginLeft: 4 }}
-        >
-          <option value="Text">Text</option>
-          <option value="File">File</option>
-        </select>
-      </label>
+          options={[
+            { value: 'Text', label: 'Text' },
+            { value: 'File', label: 'File' },
+          ]}
+        />
+      </div>
     </BaseNode>
   );
 };
+
